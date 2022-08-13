@@ -1,0 +1,17 @@
+.div-msg {
+    background-color: blue;
+    color: white;
+    width: fit-content;
+  }
+
+  .div-msg-first {
+    background-color: grey;
+    color: white;
+    width: fit-content;
+  }
+
+ .div-msg-last {
+    background-color: red;
+    color: white;
+    width: fit-content;
+  }
