@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   currentPage = 0;
+  times!: number;
 
   images = [
     {
@@ -87,5 +88,13 @@ export class AppComponent {
   checkWindowIndex(index: number) {
     return Math.abs(this.currentPage - index) < 5;
 
+  }
+
+  getNumberOfTimes(event:any){
+    const value = event.target.value;
+    this.times = value;
+  }
+  RepeatMe(){
+    return this.times;
   }
 }

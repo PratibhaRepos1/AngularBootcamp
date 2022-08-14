@@ -1,4 +1,4 @@
-<h2>Pages</h2>
+<h2 [appClass]="'pink'">Pages</h2>
 
 <nav>
   <ul class="pagination">
@@ -8,7 +8,7 @@
       <a class="page-link"
       (click)="currentPage = currentPage - 1">Prev</a>
     </li>
-    <ng-container *ngFor="let image of images; let i=index;">
+    <ng-container *appTimes="images.length;let i=index;">
         <li 
         class="page-item" 
         [ngClass]="{ active: i === currentPage }"
@@ -37,3 +37,15 @@
   <h4>{{images[currentPage].title}}</h4>
   <img [src]="images[currentPage].url" />
 </div>
+
+<h3>Custom Structural Directive</h3>
+<div>
+  <label>Repeat Me </label>
+</div>
+<div>
+  <input type="number" (input)="getNumberOfTimes($event)"/>
+</div>
+<ul *appTimes="RepeatMe();">
+  <li><b>Hi There!</b></li>
+</ul>
+<div *appTimes="RepeatMe();"><label>Checkout Date:</label> <input type="date" value="true"/></div>
