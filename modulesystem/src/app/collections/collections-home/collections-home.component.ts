@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class CollectionsHomeComponent implements OnInit {
 
   constructor() { }
-
+  
   data = [
     {name: 'John', age: 23, job: 'Designer', employed: true },
     {name: 'Peter', age: 43, job: 'Manager', employed: true},
