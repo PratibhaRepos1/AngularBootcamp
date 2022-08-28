@@ -3,12 +3,13 @@
 {{a}} + {{b}} = 
 </div>
 <input 
+appAnswerHightlight
 formControlName="answer"
 />
 </form>
 <br>
 <div class="stats">
-    {{ secondsPerSolution | number: '1.1-3' }}
+    {{ secondsPerSolution | number: '1.1-3' }} {{ ' Seconds per Solutions' }}
 </div>
 
 <!-- <br>
