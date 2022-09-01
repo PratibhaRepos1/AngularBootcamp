@@ -1,22 +1,45 @@
 <h3>Create an Account</h3>
 <form class="ui form" [formGroup]="authForm">
-    <div class="field">
+  
+    <app-input
+        inputType="text"
+        label="Username" [control]="authForm.controls.username">
+    </app-input>
+    <app-input 
+        inputType="password"    
+        label="Password" [control]="authForm.controls.password">
+    </app-input>
+    <app-input 
+        inputType="password"
+        label="Confirm Password" 
+        [control]="authForm.controls.passwordConfirmation">
+    </app-input>
+
+    <div *ngIf="authForm.controls.password.touched && authForm.controls.passwordConfirmation.touched && authForm.errors"
+        class="ui red basic label">
+        <p *ngIf="authForm.errors['passwordsDontMatch']">
+            Password and Confirm Password must match.
+        </p>
+    </div>
+   
+</form>
+<div>
+<button class="ui submit button primary" (click)="onClick()">Submit</button>
+</div>
+
+   <!-- <div class="field">
         <label>Username</label>
         <input formControlName ="username" />
-    </div>
-    {{ authForm.controls.username.errors | json }}
-    <div class="field">
-        <label>Password</label>
-        <input formControlName ="password" />
-    </div>
-    {{ authForm.controls.password.errors | json }}
-    <div class="field">
-        <label>Confirmed Password</label>
-        <input formControlName ="passwordConfirmation" />
-    </div>
-    {{ authForm.controls.passwordConfirmation.errors | json }}
+    </div> -->
+<!-- <div class="field">
+    <label>Password</label>
+    <input formControlName ="password" />
+</div>
 
-    <button class="ui submit button primary">Submit</button>
-
-    {{ authForm.errors | json}}
-</form>
+<div class="field">
+    <label>Confirmed Password</label>
+    <input formControlName ="passwordConfirmation" />
+</div>
+{{ authForm.controls.passwordConfirmation.errors | json }} -->
+{{ authForm.errors | json}}
+<!-- {{ authForm.controls.password.errors | json }} -->
