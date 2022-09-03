@@ -39,22 +39,34 @@ export class SignupComponent implements OnInit {
   ],
   );
 
-  constructor(private matchPassword: MatchPassword,
-    private authService: AuthService,
-    private uniqueUsername: UniqueUsername) { }
+  constructor(
+    private matchPassword: MatchPassword,
+    private uniqueUsername: UniqueUsername,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
   onClick(): any {
-    debugger;
-   //this.uniqueUsername.validate(this.authForm.controls['username']);
+   
 
-   this.authService.checkUsername(this.authForm.controls['username']).subscribe((data: {}) => {
+   this.authService.checkUsername(this.authForm.controls['username']).subscribe((data) => {
    console.log(data);
   });
-   
 
   }
 
+  onSubmit() {
+    // this.authService.checkUsername(this.authForm.controls['username']).subscribe((data) => {
+    //   console.log(data);
+    //  });
+
+   if(this.authForm.invalid){
+    return;
+   } 
+   console.log(this.authForm.value);
+   this.authService.signup(this.authForm.value).subscribe((response) => {
+    console.log(response);
+   });
+  }
 }

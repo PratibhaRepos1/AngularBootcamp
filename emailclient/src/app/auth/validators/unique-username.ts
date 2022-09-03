@@ -14,7 +14,7 @@ export class UniqueUsername implements AsyncValidator{
     validate = (control:FormControl) => {
       
         const value = control.value;
-        //debugger;
+      
         return this.authService.usernameAvailable(value)
         .pipe(
             map(() => {

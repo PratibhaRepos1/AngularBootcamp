@@ -1,5 +1,5 @@
 <h3>Create an Account</h3>
-<form class="ui form" [formGroup]="authForm">
+<form class="ui form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
   
     <app-input
         inputType="text"
@@ -24,7 +24,7 @@
    
 </form>
 <div>
-<button class="ui submit button primary" (click)="onClick()">Submit</button>
+<button class="ui submit button primary" (click)="onSubmit()">Submit</button>
 </div>
 
    <!-- <div class="field">
