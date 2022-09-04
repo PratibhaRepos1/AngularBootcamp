@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders  } from "@angular/common/http";
 import { Observable, throwError  } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, tap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 interface usernameAvailableResponse {
   available: boolean;
@@ -17,12 +18,18 @@ interface SignupResponse {
   username: string;
 
 }
+interface SignInResponse {
+  authenticated: boolean;
+  username: string;
+
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   rootUrl = 'https://api.angular-email.com';
+  signedin$ = new BehaviorSubject(false);
 
   constructor(private http: HttpClient) { }
 
@@ -72,8 +79,34 @@ export class AuthService {
 
   signup(credentials: any)
   {
-    return this.http.post<SignupResponse>(this.rootUrl + '/auth/signup', credentials);
+    return this.http.post<SignupResponse>(this.rootUrl + '/auth/signup', credentials)
+    .pipe(
+      tap(() => {
+        this.signedin$.next(true);
+      })
+    );
 
+  }
+
+  checkAuth() {
+    //using here template string
+    return this.http.get<SignInResponse>(`${this.rootUrl}/auth/signedin`)
+    .pipe(
+      tap(({authenticated}) => {
+        this.signedin$.next(authenticated);
+
+      })
+    );
+  }
+
+  signOut() {
+
+    return this.http.post(this.rootUrl + '/auth/signout', {})
+    .pipe(
+      tap(() => {
+        this.signedin$.next(false);
+      })
+    );
   }
 
 }
