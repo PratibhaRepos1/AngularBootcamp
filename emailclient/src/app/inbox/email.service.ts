@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders  } from "@angular/common/http";
 import { Observable, throwError  } from 'rxjs';
 import { retry, catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { Email } from './email';
 
 interface EmailSummary {
   id: string | null;
@@ -10,6 +11,8 @@ interface EmailSummary {
   from: string| null;
 
 }
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +24,9 @@ export class EmailService {
 
   getEmails() {
     return this.http.get<EmailSummary[]>(`${this.rootUrl}/emails`);
+  }
+
+  getEmail(id: string) {
+    return this.http.get<Email>(`${this.rootUrl}/emails/${id}`);
   }
 }
