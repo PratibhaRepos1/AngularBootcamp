@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Email } from '../email';
-
+import { AuthService } from 'src/app/auth/auth.service';
+import { EmailService } from '../email.service';
 @Component({
   selector: 'app-email-create',
   templateUrl: './email-create.component.html',
@@ -10,19 +11,28 @@ export class EmailCreateComponent implements OnInit {
   showModal: boolean = false;
   email: Email;
 
-  constructor() { 
+  constructor(private authService: AuthService,
+    private emailService: EmailService) { 
+    console.log(authService.username);
     this.email = {
       id: '',
       to: '',
       subject: '',
       html: '',
       text:'',
-      from: 'sept7@angular-email.com'
+      from: `${authService.username}@angular-email.com`
     };
 
   }
 
   ngOnInit(): void {
+  }
+
+  onSubmit(email: Email) {
+    //Send the email via the email service
+    this.emailService.sendEmail(email).subscribe(() => {
+      this.showModal = false;
+    })
   }
 
 }

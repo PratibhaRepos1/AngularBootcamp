@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Email } from '../email';
 
@@ -11,6 +11,8 @@ export class EmailFormComponent implements OnInit {
   emailForm: FormGroup | any;
   
 @Input() email: Email | undefined;
+
+@Output() emailSubmit = new EventEmitter();
 
   constructor() {
 
@@ -26,7 +28,15 @@ export class EmailFormComponent implements OnInit {
       text: new FormControl(this.email?.text, [Validators.required])
 
     });
+  }
 
+  onSubmit() {
+    if(this.emailForm.invalid) {
+      return;
+    }
+    //console.log(this.emailForm.getRawValue()); //get the from value here even if it is disabled
+
+    this.emailSubmit.emit(this.emailForm.value);
   }
 
 }
